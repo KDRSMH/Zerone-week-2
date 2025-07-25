@@ -34,6 +34,28 @@ Command Injection occurs when the application executes system-level commands usi
 ```; rm -rf /```
 
 This can allow the attacker to run arbitrary commands on the server, which may lead to complete system takeover, data deletion, or malware installation.
+Remote Code Execution (RCE) is a severe security vulnerability that allows an attacker to execute arbitrary code on a remote server or system, typically through a web application. This happens when user input is not properly validated or sanitized, and that input is passed to system-level functions like exec(), system(), or other command execution methods.
+
+**4. RCE vulnerabilities:**
+often arise when developers directly include user input in backend operations, such as command-line calls, script execution, or file handling, without proper input filtering. An attacker can exploit this to run their own commands on the server — which may include reading or deleting files, installing malware, stealing sensitive data, or even taking full control of the system.
+
+🔥 Why RCE is Dangerous:
+- Allows attackers to bypass authentication
+
+- Can lead to complete server compromise
+
+- Enables remote access for persistence or lateral movement
+
+- Often leads to data leaks, ransomware attacks, or system shutdowns
+
+🛡️ Prevention:
+Never pass user input directly into command execution functions
+
+- Use safe APIs and avoid shell calls whenever possible
+
+- Apply strict input validation and allowlists
+
+- Use proper permission management and isolation
 
 **How to Prevent These Vulnerabilities:**
 - Always validate and sanitize all user inputs, both on the client and server side.
@@ -52,6 +74,45 @@ By following secure coding practices and regularly testing for vulnerabilities, 
 
 ### Now let's examine PaparaX Bank's database and some code snippets.
 
+- We have two authorized entries created with an SQL query.
+  <img title="a title" alt="Alt text" src="/images/user.png">
+
+- However, several errors on the login screen lead to some security vulnerabilities.
+ <img title="a title" alt="Alt text" src="/images/code_snip.png"> 
+
+- These security vulnerabilities allow us to easily access the login screen. ``` SELECT * FROM users WHERE username = 'input' AND password = 'input';```,``` ' OR '1'='1```
+
+ <img title="a title" alt="Alt text" src="/images/admin.png"> 
+
+ - Now we're inside. Pay attention to the details section.
+   
+ <img title="a title" alt="Alt text" src="/images/transfers_detail.png"> 
+
+ - If you click on the “Update current amount” button, you will be exposed to a separate security vulnerability.(RCE vulnerabilities)
+
+<img title="a title" alt="Alt text" src="/images/rce.png">
+
+- The lack of a specific file format is a serious problem.
+<img title="a title" alt="Alt text" src="/images/vuln.png">
+
+- This file can execute certain commands on the system.```   whoami && hostname && ipconfig && net user && net localgroup administrators && systeminfo```
+ <img title="a title" alt="Alt text" src="/images/cal.png">
+
+- Our system information and much more data is now in the hands of others.
+<img title="a title" alt="Alt text" src="/images/hassas.png">
+
+## Prevention of security breaches 
+- The security vulnerability in the login panel has been prevented in this way.
+<img title="a title" alt="Alt text" src="/images/secure login.png">
+
+- login failed
+<img title="a title" alt="Alt text" src="/images/secure admin.png">
+
+- and you can now upload files in a specific format and with enhanced security.
+<img title="a title" alt="Alt text" src="/images/rce secure.png">
+- Security is now stronger. Of course, not 100%.
+<img title="a title" alt="Alt text" src="/images/csvv.png">
+  
 
 
 
