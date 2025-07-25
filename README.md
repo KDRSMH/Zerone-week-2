@@ -86,13 +86,14 @@ By following secure coding practices and regularly testing for vulnerabilities, 
 
  - Now we're inside. Pay attention to the details section.
    
- <img title="a title" alt="Alt text" src="/images/transfers_detail.png"> 
+ <img title="a title" alt="Alt text" src="/images/transfer.png"> 
 
  - If you click on the “Update current amount” button, you will be exposed to a separate security vulnerability.(RCE vulnerabilities)
-
+<img title="a title" alt="Alt text" src="/images/transfers_detail.png"> 
+ 
+ -  The lack of a specific file format is a serious problem.
 <img title="a title" alt="Alt text" src="/images/rce.png">
 
-- The lack of a specific file format is a serious problem.
 <img title="a title" alt="Alt text" src="/images/vuln.png">
 
 - This file can execute certain commands on the system.```   whoami && hostname && ipconfig && net user && net localgroup administrators && systeminfo```
